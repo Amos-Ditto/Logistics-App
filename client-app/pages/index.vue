@@ -1,7 +1,7 @@
 <template>
     <section class="h-full flex flex-col items-center justify-start">
         <div class="body w-[360px] h-[800px] flex items-start justify-center flex-col pb-4">
-            <div class="banner">
+            <div class="banner w-full flex items-center justify-center">
                 <img src="@/assets/images/Banner.svg" alt="" />
             </div>
             <div class="title-text pt-20">
@@ -9,7 +9,7 @@
                     send anything <span class="font-bold text-[#0C3A30]">fast</span>
                 </h3>
             </div>
-            <article class="pt-4 indent-8 leading-6 text-gray-600">
+            <article class="pt-4 indent-8 leading-6 text-gray-600 tracking-wide font-light text-lg">
                 Create your quick account, find the best rates and transfer your items from one location to another.
             </article>
             <div class="redirect pt-16 w-full flex items-center justify-center">

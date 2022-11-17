@@ -11,6 +11,7 @@ export default defineNuxtConfig({
             meta: [{ name: 'description', content: 'Send & Fetch products throughout any place.' }],
         },
         pageTransition: { name: 'page', mode: 'out-in' },
+        layoutTransition: { name: 'layout', mode: 'out-in' },
     },
     unocss: {
         icons: true,
