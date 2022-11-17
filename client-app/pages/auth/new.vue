@@ -1,6 +1,6 @@
 <template>
-    <section class="flex items-center justify-center flex-col pb-4 w-full">
-        <div class="body w-full sm:w-[480px] h-[800px] flex flex-col py-8 z-20 px-4">
+    <section class="flex items-center justify-center flex-col w-full">
+        <div class="body w-full sm:w-[480px] h-[800px] sm:h-auto flex flex-col py-8 z-20 px-4 overflow-y-auto">
             <div class="title flex flex-col gap-y-2">
                 <h3 class="text-dark text-2xl tracking-wide font-light">Create a Free</h3>
                 <h4 class="tracking-wide text-5xl text-default font-normal">Account</h4>
@@ -42,7 +42,7 @@
                     <img src="@/assets/images/btn_google.png" alt="" />
                 </button>
             </div>
-            <div class="other flex flex-col w-full items-center py-6">
+            <div class="other flex flex-col w-full items-center pb-2 pt-2 sm:pt-6">
                 <small class="text-xl font-serif"
                     >Exiting User?
                     <NuxtLink to="/auth" class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer"

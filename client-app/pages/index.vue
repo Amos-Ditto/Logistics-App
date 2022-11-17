@@ -1,6 +1,6 @@
 <template>
     <section class="h-full flex flex-col items-center justify-start">
-        <div class="body w-[360px] h-[800px] flex items-start justify-center flex-col pb-4">
+        <div class="body w-[360px] flex items-start justify-center flex-col pb-4 pt-12">
             <div class="banner w-full flex items-center justify-center">
                 <img src="@/assets/images/Banner.svg" alt="" />
             </div>

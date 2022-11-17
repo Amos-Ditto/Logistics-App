@@ -1,8 +1,8 @@
 <template>
-    <section class="flex items-center justify-center flex-col pb-4 w-full">
-        <div class="body w-full sm:w-[480px] h-[800px] flex flex-col py-8 z-20 px-4">
+    <section class="flex items-center justify-center flex-col pb-2 w-full">
+        <div class="body w-full sm:w-[480px] h-[800px] sm:h-auto flex flex-col pt-8 z-20 px-4 overflow-y-auto">
             <div class="title flex flex-col gap-y-2">
-                <h3 class="text-dark text-2xl tracking-wider font-light">Welcome back!</h3>
+                <h3 class="text-dark text-2xl md:text-3xl tracking-wider font-light">Welcome back!</h3>
             </div>
             <div class="banner w-full flex flex-col items-center justify-center">
                 <img src="@/assets/images/SignUp.svg" alt="" />
@@ -30,13 +30,13 @@
                     </button>
                 </div>
             </form>
-            <div id="gSignInWrapper" class="flex flex-row justify-center gap-x-4 w-full items-center pb-4 pt-12 px-2">
+            <div id="gSignInWrapper" class="flex flex-row justify-center gap-x-4 w-full items-center py-8 px-2">
                 <span class="label">Sign in with:</span>
                 <button class="hover:opacity-80 transition duration-200">
                     <img src="@/assets/images/btn_google.png" alt="" />
                 </button>
             </div>
-            <div class="other flex flex-col w-full items-center py-6">
+            <div class="other flex flex-col w-full items-center pb-2 pt-2 sm:pt-6">
                 <small class="text-xl font-serif"
                     >New User?
                     <NuxtLink to="/auth/new" class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer"
