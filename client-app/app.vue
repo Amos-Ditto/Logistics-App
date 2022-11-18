@@ -1,7 +1,10 @@
 <template>
-    <NuxtLayout>
-        <NuxtPage />
-    </NuxtLayout>
+    <main>
+        <NuxtLoadingIndicator />
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+    </main>
 </template>
 
 <style>
@@ -20,19 +23,18 @@ body {
     @apply bg-[#f0f0f0] text-dark;
 }
 
-.layout-enter-active,
-.layout-leave-active {
-    transition: all 0.4s;
+.layout-enter-active {
+    transition: all 0.3s;
 }
 
-.layout-enter-from,
+.layout-enter-from {
+    opacity: 0;
+}
 .layout-leave-to {
-    filter: grayscale(1);
-    @apply opacity-5;
+    opacity: 0;
 }
 
-.page-enter-active,
-.page-leave-active {
+.page-enter-active {
     transition: all 0.4s;
 }
 .page-enter-from {

@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const redirectHome = (): void => {
+    useRouter().push('/home');
+};
+</script>
 <template>
     <section class="h-full flex flex-col items-center justify-start">
         <div class="body w-[360px] flex items-start justify-center flex-col pb-4 pt-12">
@@ -14,6 +19,7 @@
             </article>
             <div class="redirect pt-16 w-full flex items-center justify-center">
                 <button
+                    @click="redirectHome"
                     class="bg-[#0C3A30] border-8 border-[#c6d1ce] hover:border-[#95bfb2] rounded-full p-3 text-gray-50 transition duration-200"
                 >
                     <div class="i-carbon-arrow-up-right text-3xl cursor-pointer transition duration-200"></div>

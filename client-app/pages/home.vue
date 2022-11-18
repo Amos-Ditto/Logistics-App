@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
     layout: false,
-})
+});
 </script>
 <template>
     <main class="w-full flex flex-col">
@@ -15,7 +15,7 @@ definePageMeta({
                 <div class="locations flex flex-col w-full gap-y-2">
                     <h3 class="font-bold text-lg tracking-wide">Details</h3>
                     <div class="flex flex-col gap-y-2 gap-x-2 md:grid grid-cols-2">
-                        <div class="from-details flex flex-col py-2 w-[90%] md:w-[84%]">
+                        <div class="from-details flex flex-col py-2 w-full sm:w-[90%] md:w-[84%]">
                             <button
                                 class="py-3 px-2.5 rounded-xl flex flex-row items-center justify-between border border-default hover:border-emerald-600 focus:border-emerald-600 transition duration-200"
                             >
@@ -26,11 +26,11 @@ definePageMeta({
                                     </div>
                                 </div>
                                 <div class="redirect">
-                                    <div class="i-carbon-chevron-right text-xl"></div>
+                                    <div class="i-carbon-chevron-right text-xl transition duration-200"></div>
                                 </div>
                             </button>
                         </div>
-                        <div class="to-details flex flex-col py-2 w-[90%] md:w-[84%]">
+                        <div class="to-details flex flex-col py-2 w-full sm:w-[90%] md:w-[84%]">
                             <button
                                 class="py-3 px-2.5 rounded-xl flex flex-row items-center justify-between border border-default hover:border-emerald-600 focus:border-emerald-600 transition duration-200"
                             >
@@ -41,7 +41,7 @@ definePageMeta({
                                     </div>
                                 </div>
                                 <div class="redirect">
-                                    <div class="i-carbon-chevron-right text-xl"></div>
+                                    <div class="i-carbon-chevron-right text-xl transition duration-200"></div>
                                 </div>
                             </button>
                         </div>
@@ -49,28 +49,40 @@ definePageMeta({
                 </div>
                 <div class="pickup-details flex flex-col w-full gap-y-6 md:gap-y-3">
                     <h3 class="font-bold text-lg tracking-wide">PickUp</h3>
-                    <div class="w-full flex flex-col md:grid grid-cols-2 gap-x-4 gap-y-8 md:gap-y-4">
-                        <div class="time w-[90%] md:w-[84%] grid grid-cols-3 items-center gap-x-3">
+                    <div class="w-full flex flex-col lg:grid grid-cols-2 gap-x-4 gap-y-8 lg:gap-y-4">
+                        <div class="time w-full sm:w-[90%] lg:w-[84%] grid grid-cols-3 items-center gap-x-3">
                             <h3 class="font-light text-base tracking-wide">Time:</h3>
                             <div class="time-label flex flex-row justify-start items-center">
                                 <div class="label-container border border-default flex flex-row gap-x-0.5 rounded-full">
-                                    <button class="tracking-wide rounded-full bg-default text-gray-50 text-sm px-4 py-1.5">AM</button>
-                                    <button class="tracking-wide rounded-full text-default text-sm px-4 py-1.5">PM</button>
+                                    <button
+                                        class="tracking-wide rounded-full bg-default text-gray-50 text-xs sm:text-sm px-2 sm:px-4 py-1.5 border border-transparent transition duration-200"
+                                    >
+                                        AM
+                                    </button>
+                                    <button
+                                        class="tracking-wide rounded-full text-default text-xs sm:text-sm px-2 sm:px-4 py-1.5 border border-transparent transition duration-200 hover:border-default"
+                                    >
+                                        PM
+                                    </button>
                                 </div>
                             </div>
                             <div class="time-list flex flex-row items-center justify-center">
-                                <button class="flex flex-row gap-x-2 rounded-full px-3 py-1.5 border border-default">
+                                <button class="flex flex-row gap-x-1 rounded-full px-2 sm:px-3 py-1.5 border border-default items-center">
                                     <span>10:00</span>
                                     <span>-</span>
                                     <span>12:00</span>
+                                    <div class="i-carbon-chevron-down text-lg sm:text-xl"></div>
                                 </button>
                             </div>
                         </div>
-                        <div class="date w-[90%] md:w-[84%] grid grid-cols-2 items-center gap-x-3">
+                        <div class="date w-full sm:w-[90%] md:w-[84%] grid grid-cols-2 items-center gap-x-3">
                             <h3>Date:</h3>
                             <div class="date-label flex flex-row items-center justify-end">
-                                <button class="rounded-full border border-default px-4 py-1.5">
-                                    <span class="text-base tracking-wide capitalize">today</span>
+                                <button
+                                    class="rounded-full border border-default px-4 py-1.5 flex flex-row items-center justify-between gap-x-2"
+                                >
+                                    <span class="text-sm sm:text-base tracking-wide capitalize">today</span>
+                                    <div class="i-carbon-chevron-down text-lg sm:text-xl"></div>
                                 </button>
                             </div>
                         </div>
@@ -114,11 +126,11 @@ header button {
 }
 
 .time-list span {
-    @apply text-base text-default tracking-wide;
+    @apply text-sm sm:text-base text-default tracking-wide;
 }
 
 .description-list button {
-    @apply px-4 py-1.5 bg-default opacity-60 hover:opacity-100 focus:opacity-100 rounded-full text-gray-50 tracking-wide capitalize text-sm md:text-base transition duration-200;
+    @apply px-4 py-1.5 lg:py-2 bg-default opacity-40 hover:opacity-100 focus:opacity-100 rounded-full text-gray-50 tracking-wide capitalize text-sm md:text-base transition duration-200 truncate;
 }
 
 .amount span {
@@ -127,5 +139,12 @@ header button {
 
 .send-order button:hover .i-carbon-arrow-up-right {
     @apply translate-x-0.5 -translate-y-0.5;
+}
+
+.from-details button:hover .i-carbon-chevron-right,
+.from-details button:focus .i-carbon-chevron-right,
+.to-details button:hover .i-carbon-chevron-right,
+.to-details button:focus .i-carbon-chevron-right {
+    @apply translate-x-1;
 }
 </style>
