@@ -2,6 +2,9 @@
 definePageMeta({
     layout: false,
 });
+const redirectSuccessful = (): void => {
+    useRouter().push('successful');
+};
 </script>
 <template>
     <main class="w-full flex flex-col">
@@ -109,6 +112,7 @@ definePageMeta({
                 </div>
                 <div class="send-order w-full flex flex-col items-center justify-center gap-y-2">
                     <button
+                        @click="redirectSuccessful"
                         class="bg-[#0C3A30] border-8 border-[#c6d1ce] hover:border-[#95bfb2] rounded-full p-3 text-gray-50 transition duration-200"
                     >
                         <div class="i-carbon-arrow-up-right text-3xl cursor-pointer transition duration-200"></div>
