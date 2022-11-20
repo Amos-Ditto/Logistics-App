@@ -74,7 +74,7 @@ const redirectSuccessful = (): void => {
                                     <span>10:00</span>
                                     <span>-</span>
                                     <span>12:00</span>
-                                    <div class="i-carbon-chevron-down text-lg sm:text-xl"></div>
+                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200"></div>
                                 </button>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const redirectSuccessful = (): void => {
                                     class="rounded-full border border-default px-4 py-1.5 flex flex-row items-center justify-between gap-x-2"
                                 >
                                     <span class="text-sm sm:text-base tracking-wide capitalize">today</span>
-                                    <div class="i-carbon-chevron-down text-lg sm:text-xl"></div>
+                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200"></div>
                                 </button>
                             </div>
                         </div>
@@ -126,11 +126,16 @@ const redirectSuccessful = (): void => {
 
 <style scoped>
 header button {
-    @apply px-6 py-1 md:py-2 rounded-xl border border-transparent hover:border-default tracking-wide text-base font-light capitalize transition duration-200;
+    @apply px-6 py-1 md:py-2 rounded-xl border border-transparent hover:border-default focus:border-default focus:bg-default focus:text-gray-50 tracking-wide text-base font-light capitalize transition duration-200;
 }
 
 .time-list span {
     @apply text-sm sm:text-base text-default tracking-wide;
+}
+
+.time-list button:hover .i-carbon-chevron-down,
+.date-label button:hover .i-carbon-chevron-down {
+    @apply translate-y-0.5;
 }
 
 .description-list button {

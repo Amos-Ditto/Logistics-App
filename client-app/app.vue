@@ -44,4 +44,22 @@ body {
 .page-leave-to {
     opacity: 0;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 32px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #f9fbff;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300;
+    border-radius: 32px;
+}
+::-webkit-scrollbar-track {
+    background-color: #f9fbff;
+}
 </style>
