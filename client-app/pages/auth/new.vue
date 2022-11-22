@@ -45,7 +45,9 @@
             <div class="other flex flex-col w-full items-center pb-2 pt-2 sm:pt-6">
                 <small class="text-xl font-serif"
                     >Exiting User?
-                    <NuxtLink to="/auth" class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer"
+                    <NuxtLink
+                        to="/auth"
+                        class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer underline hover:no-underline"
                         >Login</NuxtLink
                     ></small
                 >

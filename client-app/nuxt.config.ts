@@ -1,4 +1,4 @@
-import presetIcons from '@unocss/preset-icons'
+import presetIcons from '@unocss/preset-icons';
 
 export default defineNuxtConfig({
     css: ['~/assets/css/tailwind.css'],
@@ -20,4 +20,7 @@ export default defineNuxtConfig({
     colorMode: {
         classSuffix: '',
     },
-})
+    routeRules: {
+        '/maps/**': { ssr: false },
+    },
+});

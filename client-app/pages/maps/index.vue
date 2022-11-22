@@ -1,7 +1,20 @@
 <script setup lang="ts">
-import '@/assets/dist/leaflet.css';
+import 'leaflet/dist/leaflet.css';
+import leaflet from 'leaflet';
+
 definePageMeta({
     layout: false,
+});
+
+let mymap;
+onMounted(() => {
+    mymap = leaflet.map('mapid').setView([51.505, -0.09], 13);
+    leaflet
+        .tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        })
+        .addTo(mymap);
 });
 </script>
 <template>
@@ -16,9 +29,10 @@ definePageMeta({
             </div>
         </div>
         <div class="map-section min-h-[500px] max-h-[600px] w-full">
-            <div id="map-id" class="h-full w-full bg-gray-300">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium placeat modi velit, ut amet nihil. Voluptatibus aperiam
-                repellat ipsa beatae, delectus, sed quod aliquam adipisci at blanditiis ab dolorem ipsum!
+            <div id="mapid" style="height: 80vh">
+                <l-map class="w-full" :center="[47.41322, -1.219482]" style="height: 80vh">
+                    <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
+                </l-map>
             </div>
         </div>
     </section>

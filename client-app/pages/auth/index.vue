@@ -39,7 +39,9 @@
             <div class="other flex flex-col w-full items-center pb-2 pt-2 sm:pt-6">
                 <small class="text-xl font-serif"
                     >New User?
-                    <NuxtLink to="/auth/new" class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer"
+                    <NuxtLink
+                        to="/auth/new"
+                        class="font-semibold tracking-wide text-default px-1 hover:opacity-80 cursor-pointer underline hover:no-underline"
                         >SignUp</NuxtLink
                     ></small
                 >
