@@ -28,7 +28,6 @@
     "prettier": "^2.7.1"
   },
   "dependencies": {
-    "leaflet": "^1.9.3",
-    "nuxt-leaflet": "^0.0.27"
+    "leaflet": "^1.9.3"
   }
 }
