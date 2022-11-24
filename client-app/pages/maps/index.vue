@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
-import * as L from 'leaflet';
+import L from 'leaflet';
 
 const currentpin = ref<number[]>([-0.28572, 36.053389]);
 const mapelement = ref<HTMLDivElement>();
+type Coords = {
+    lat: number;
+    long: number;
+};
+const coords = ref<Coords | null>();
 let mymap: L.Map | L.LayerGroup<any>;
 onMounted(() => {
     console.log('Page launched');
     launchMap();
+    mymap.on('click', function (e) {
+        coords.value = { lat: e.latlng.lat, long: e.latlng.lng };
+    });
     setTimeout(function () {
         window.dispatchEvent(new Event('resize'));
-    }, 250);
+    }, 500);
 });
 
 const launchMap = (): void => {
@@ -20,15 +28,16 @@ const launchMap = (): void => {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(mymap);
     L.marker([-0.28572, 36.063389]).addTo(mymap).bindPopup('My current location pin.').openPopup();
-    mymap.on('click', function (e) {
-        alert(e.latlng);
-    });
 };
 const plotGeoLocation = (): void => {
     L.marker(currentpin.value as unknown as L.LatLngExpression)
         .addTo(mymap)
         .bindPopup('My current location pin.')
         .openPopup();
+};
+
+const toggleLocationBar = (): void => {
+    coords.value = null;
 };
 </script>
 <template>
@@ -49,21 +58,45 @@ const plotGeoLocation = (): void => {
                     <div class="i-carbon-arrow-left text-xl transition duration-200"></div>
                 </button>
             </div>
-            <div
-                class="selected-loc absolute top-[94%] min-w-[84%] md:min-w-[25%] max-w-[86%] md:max-w-[60%] min-h-[4rem] bg-gray-50 rounded z-30 shadow-md px-2 py-1 flex flex-row justify-between gap-x-2"
-            >
-                <div class="name flex flex-col gap-y-1">
-                    <span class="text-default opacity-80 uppercase text-sm md:text-base tracking-wide">Location</span>
-                    <span class="text-default text-base md:text-lg tracking-wide">Kabarak</span>
+            <Transition name="fade-in">
+                <div
+                    v-if="coords != null"
+                    class="selected-loc absolute top-[94%] right-4 md:right-auto min-w-[80%] md:min-w-[40%] max-w-[80%] md:max-w-[60%] min-h-[4rem] bg-gray-50 rounded z-30 shadow-md px-2 py-1 flex flex-col items-end md:items-start gap-y-2"
+                >
+                    <div class="description flex flex-row gap-x-2 justify-between w-full">
+                        <div class="name flex flex-col gap-y-1">
+                            <span class="text-default opacity-80 uppercase text-sm tracking-wide">Location</span>
+                            <span class="text-default text-base tracking-wide">Kabarak</span>
+                        </div>
+                        <div class="country flex flex-col gap-y-1">
+                            <span class="text-default opacity-80 uppercase text-sm tracking-wide">country</span>
+                            <span class="text-default text-base tracking-wide">Kenya</span>
+                        </div>
+                        <div class="name flex flex-col gap-y-1">
+                            <span class="text-default opacity-80 uppercase text-sm tracking-wide">Lat</span>
+                            <span class="text-default text-base tracking-wide truncate">{{ coords?.lat.toFixed(4) || 'null' }}</span>
+                        </div>
+                        <div class="country flex flex-col gap-y-1">
+                            <span class="text-default opacity-80 uppercase text-sm tracking-wide">long</span>
+                            <span class="text-default text-base tracking-wide truncate">{{ coords?.long.toFixed(4) || 'null' }}</span>
+                        </div>
+                    </div>
+                    <div class="submit flex md:flex-row gap-x-4 flex-row-reverse">
+                        <button
+                            @click="useRouter().back()"
+                            class="bg-default opacity-90 rounded text-sm tracking-wide text-gray-50 px-2 py-0.5 hover:opacity-75 transition duration-200"
+                        >
+                            Submit
+                        </button>
+                        <button
+                            @click="toggleLocationBar"
+                            class="opacity-90 rounded text-sm tracking-wide text-tomato px-2 py-0.5 hover:opacity-75 transition duration-200 hover:underline"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
-                <div class="country flex flex-col gap-y-1">
-                    <span class="text-default opacity-80 uppercase text-sm md:text-base tracking-wide">country</span>
-                    <span class="text-default text-base md:text-lg tracking-wide">Kenya</span>
-                </div>
-                <div class="submit flex flex-col">
-                    <button class="bg-default opacity-80 rounded text-sm tracking-wide text-gray-50 px-2 py-1">Submit</button>
-                </div>
-            </div>
+            </Transition>
         </div>
         <div class="map-section min-h-[500px] max-h-[600px] w-full z-10">
             <div id="mapid" ref="mapelement" style="height: 80vh; width: 100vw" class="m-0 p-0">
@@ -90,5 +123,15 @@ const plotGeoLocation = (): void => {
 
 .back-btn button:hover .i-carbon-arrow-left {
     @apply -translate-x-0.5;
+}
+
+/* Transitions */
+.fade-in-enter-from,
+.fade-in-leave-to {
+    @apply -translate-y-2 opacity-0;
+}
+.fade-in-enter-active,
+.fade-in-leave-active {
+    @apply transition duration-300;
 }
 </style>

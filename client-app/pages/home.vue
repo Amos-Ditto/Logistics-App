@@ -5,7 +5,7 @@ definePageMeta({
 const redirectSuccessful = (): void => {
     useRouter().push('successful');
 };
-const pushToPickingPoint = (): void => {
+const pushToSelectPoint = (): void => {
     useRouter().push('/maps');
 };
 </script>
@@ -23,7 +23,7 @@ const pushToPickingPoint = (): void => {
                     <div class="flex flex-col gap-y-2 gap-x-2 md:grid grid-cols-2">
                         <div class="from-details flex flex-col py-2 w-full sm:w-[90%] md:w-[84%]">
                             <button
-                                @click="pushToPickingPoint"
+                                @click="pushToSelectPoint"
                                 class="py-3 px-2.5 rounded-xl flex flex-row items-center justify-between border border-default hover:border-emerald-600 focus:border-emerald-600 transition duration-200"
                             >
                                 <div class="name flex flex-row items-center gap-x-3">
@@ -39,6 +39,7 @@ const pushToPickingPoint = (): void => {
                         </div>
                         <div class="to-details flex flex-col py-2 w-full sm:w-[90%] md:w-[84%]">
                             <button
+                                @click="pushToSelectPoint"
                                 class="py-3 px-2.5 rounded-xl flex flex-row items-center justify-between border border-default hover:border-emerald-600 focus:border-emerald-600 transition duration-200"
                             >
                                 <div class="name flex flex-row items-center gap-x-3">

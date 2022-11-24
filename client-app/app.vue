@@ -1,6 +1,6 @@
 <template>
     <main>
-        <NuxtLoadingIndicator />
+        <NuxtLoadingIndicator class="absolute top-0 left-0 right-0" />
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
@@ -23,7 +23,8 @@ body {
     @apply bg-[#f0f0f0] text-dark;
 }
 
-.layout-enter-active {
+.layout-enter-active,
+.layout-leave-active {
     transition: all 0.3s;
 }
 
@@ -34,7 +35,8 @@ body {
     opacity: 0;
 }
 
-.page-enter-active {
+.page-enter-active,
+.page-leave-active {
     transition: all 0.4s;
 }
 .page-enter-from {

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 module.exports = {
     content: ['./components/**/*.{js,vue,ts}', './layouts/**/*.vue', './pages/**/*.vue', './plugins/**/*.{js,ts}', './nuxt.config.{js,ts}'],
@@ -9,6 +9,7 @@ module.exports = {
             colors: {
                 dark: 'rgb(12 12 13 / 1)',
                 default: '#0C3A30',
+                tomato: 'tomato',
             },
         },
         screens: {
@@ -22,4 +23,4 @@ module.exports = {
     },
     darkMode: 'class',
     plugins: [require('@tailwindcss/line-clamp')],
-}
+};
