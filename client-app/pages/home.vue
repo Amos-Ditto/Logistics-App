@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import Datepicker from 'vue3-datepicker';
 definePageMeta({
     layout: false,
 });
+
+const datevalue = ref<Date>(new Date());
+
 const redirectSuccessful = (): void => {
     useRouter().push('successful');
 };
 const pushToSelectPoint = (): void => {
     useRouter().push('/maps');
 };
+watch(datevalue, (newDateValue) => {
+    console.log(datevalue.value);
+});
 </script>
 <template>
     <main class="w-full flex flex-col">
@@ -85,13 +92,19 @@ const pushToSelectPoint = (): void => {
                         </div>
                         <div class="date w-full sm:w-[90%] md:w-[84%] grid grid-cols-2 items-center gap-x-3">
                             <h3>Date:</h3>
-                            <div class="date-label flex flex-row items-center justify-end">
-                                <button
-                                    class="rounded-full border border-default px-4 py-1.5 flex flex-row items-center justify-between gap-x-2"
+                            <div class="date-label flex flex-row items-center justify-end relative">
+                                <Datepicker
+                                    v-model="datevalue"
+                                    class="rounded-full bg-inherit text-default border border-default px-4 py-1.5 flex flex-row items-center justify-center gap-x-2 relative outline-none"
+                                />
+                                <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200 absolute right-3"></div>
+                                <!-- <button
+                                    class="rounded-full border border-default px-4 py-1.5 flex flex-row items-center justify-between gap-x-2 relative"
                                 >
+                                    <Datepicker v-model="datevalue" class="text-sm sm:text-base tracking-wide capitalize outline-none" />
                                     <span class="text-sm sm:text-base tracking-wide capitalize">today</span>
-                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200"></div>
-                                </button>
+                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200 absolute right-1"></div>
+                                </button> -->
                             </div>
                         </div>
                     </div>

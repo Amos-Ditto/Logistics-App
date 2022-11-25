@@ -61,22 +61,22 @@ const toggleLocationBar = (): void => {
             <Transition name="fade-in">
                 <div
                     v-if="coords != null"
-                    class="selected-loc absolute top-[94%] right-4 md:right-auto min-w-[80%] md:min-w-[40%] max-w-[80%] md:max-w-[60%] min-h-[4rem] bg-gray-50 rounded z-30 shadow-md px-2 py-1 flex flex-col items-end md:items-start gap-y-2"
+                    class="selected-loc absolute top-[94%] right-4 md:right-auto min-w-[80%] md:min-w-[40%] max-w-[80%] md:max-w-[60%] min-h-[5rem] bg-gray-50 rounded z-30 shadow-md px-3 py-2.5 flex flex-col items-end md:items-start gap-y-2"
                 >
                     <div class="description flex flex-row gap-x-2 justify-between w-full">
-                        <div class="name flex flex-col gap-y-1">
+                        <div class="name flex flex-col gap-y-2">
                             <span class="text-default opacity-80 uppercase text-sm tracking-wide">Location</span>
                             <span class="text-default text-base tracking-wide">Kabarak</span>
                         </div>
-                        <div class="country flex flex-col gap-y-1">
+                        <div class="country flex flex-col gap-y-2">
                             <span class="text-default opacity-80 uppercase text-sm tracking-wide">country</span>
                             <span class="text-default text-base tracking-wide">Kenya</span>
                         </div>
-                        <div class="name flex flex-col gap-y-1">
+                        <div class="coord flex flex-col gap-y-2">
                             <span class="text-default opacity-80 uppercase text-sm tracking-wide">Lat</span>
                             <span class="text-default text-base tracking-wide truncate">{{ coords?.lat.toFixed(4) || 'null' }}</span>
                         </div>
-                        <div class="country flex flex-col gap-y-1">
+                        <div class="coord flex flex-col gap-y-2">
                             <span class="text-default opacity-80 uppercase text-sm tracking-wide">long</span>
                             <span class="text-default text-base tracking-wide truncate">{{ coords?.long.toFixed(4) || 'null' }}</span>
                         </div>
