@@ -1,10 +1,22 @@
 <script setup lang="ts">
-import Datepicker from 'vue3-datepicker';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 definePageMeta({
     layout: false,
 });
-
+interface Time {
+    hours: number;
+    minutes: number;
+}
 const datevalue = ref<Date>(new Date());
+const startTime = ref<Time>({
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+});
+const endTime = ref<Time>({
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+});
 
 const redirectSuccessful = (): void => {
     useRouter().push('successful');
@@ -66,45 +78,16 @@ watch(datevalue, (newDateValue) => {
                     <h3 class="font-bold text-lg tracking-wide">PickUp</h3>
                     <div class="w-full flex flex-col lg:grid grid-cols-2 gap-x-4 gap-y-8 lg:gap-y-4">
                         <div class="time w-full sm:w-[90%] lg:w-[84%] grid grid-cols-3 items-center gap-x-3">
-                            <h3 class="font-light text-base tracking-wide">Time:</h3>
-                            <div class="time-label flex flex-row justify-start items-center">
-                                <div class="label-container border border-default flex flex-row gap-x-0.5 rounded-full">
-                                    <button
-                                        class="tracking-wide rounded-full bg-default text-gray-50 text-xs sm:text-sm px-2 sm:px-4 py-1.5 border border-transparent transition duration-200"
-                                    >
-                                        AM
-                                    </button>
-                                    <button
-                                        class="tracking-wide rounded-full text-default text-xs sm:text-sm px-2 sm:px-4 py-1.5 border border-transparent transition duration-200 hover:border-default"
-                                    >
-                                        PM
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="time-list flex flex-row items-center justify-center">
-                                <button class="flex flex-row gap-x-1 rounded-full px-2 sm:px-3 py-1.5 border border-default items-center">
-                                    <span>10:00</span>
-                                    <span>-</span>
-                                    <span>12:00</span>
-                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200"></div>
-                                </button>
+                            <h3 class="font-light text-base tracking-wide col-span-1">Between:</h3>
+                            <div class="time-list col-span-2 flex flex-row items-center justify-between gap-x-2">
+                                <Datepicker v-model="startTime" timePicker />
+                                <Datepicker v-model="endTime" timePicker />
                             </div>
                         </div>
                         <div class="date w-full sm:w-[90%] md:w-[84%] grid grid-cols-2 items-center gap-x-3">
                             <h3>Date:</h3>
                             <div class="date-label flex flex-row items-center justify-end relative">
-                                <Datepicker
-                                    v-model="datevalue"
-                                    class="rounded-full bg-inherit text-default border border-default px-4 py-1.5 flex flex-row items-center justify-center gap-x-2 relative outline-none"
-                                />
-                                <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200 absolute right-3"></div>
-                                <!-- <button
-                                    class="rounded-full border border-default px-4 py-1.5 flex flex-row items-center justify-between gap-x-2 relative"
-                                >
-                                    <Datepicker v-model="datevalue" class="text-sm sm:text-base tracking-wide capitalize outline-none" />
-                                    <span class="text-sm sm:text-base tracking-wide capitalize">today</span>
-                                    <div class="i-carbon-chevron-down text-lg sm:text-xl transition duration-200 absolute right-1"></div>
-                                </button> -->
+                                <Datepicker id="date" v-model="datevalue" />
                             </div>
                         </div>
                     </div>
@@ -151,11 +134,13 @@ header button {
     @apply text-sm sm:text-base text-default tracking-wide;
 }
 
-.time-list button:hover .i-carbon-chevron-down,
-.date-label button:hover .i-carbon-chevron-down {
+.time-list button:hover .i-carbon-chevron-down {
     @apply translate-y-0.5;
 }
 
+.date-label:focus-within .i-carbon-chevron-down {
+    @apply rotate-180;
+}
 .description-list button {
     @apply px-4 py-1.5 lg:py-2 bg-default opacity-40 hover:opacity-100 focus:opacity-100 rounded-full text-gray-50 tracking-wide capitalize text-sm md:text-base transition duration-200 truncate;
 }

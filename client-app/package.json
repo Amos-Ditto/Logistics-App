@@ -28,6 +28,7 @@
     "prettier": "^2.7.1"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^3.5.3",
     "leaflet": "^1.9.3",
     "vue3-datepicker": "^0.3.4"
   }
