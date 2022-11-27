@@ -1,13 +1,20 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv_path = os.path.join(BASE_DIR, ".env")
+load_dotenv(dotenv_path)
 
-SECRET_KEY = "django-insecure-wx9i@k&e$ft$$(=5gxn0a2^rhygu$)8vrji8j5%)@!h*vp=(no"
 
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_ENV", "foo")
 
-ALLOWED_HOSTS = []
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split("|")
 
 
 DJANGO_APPS = [
@@ -19,8 +26,8 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 PROJECT_APPS = [
-    "core.apps.UsersConfig",
-    "delivery.apps.LocationsConfig",
+    "core.apps.CoreConfig",
+    "delivery.apps.DeliveryConfig",
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
@@ -34,6 +41,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -77,6 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
+AUTH_USER_MODEL = "core.User"
 
 DATABASES = {
     "default": {
