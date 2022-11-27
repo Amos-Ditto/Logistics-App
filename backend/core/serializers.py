@@ -31,3 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
 def getUserToken(user):
     token, _ = Token.objects.get_or_create(user=user)
     return "Token " + token.key
+
+
+class UserLoginSerializer(serializers.Serializer):
+    emailAddress = serializers.EmailField()
+    password = serializers.CharField(min_length=6)
