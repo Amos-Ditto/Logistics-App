@@ -55,5 +55,18 @@ class DeliveryManagerSerializer(serializers.ModelSerializer):
             )
 
             return manager
-        # else:
-        #     raise ValueError("This Station Id doesn't exist")
+
+
+class DeliveryStationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryStation
+        fields = [
+            "id",
+            "placeName",
+            "region",
+            "town",
+            "description",
+            "longitude",
+            "latitude",
+            "active",
+        ]

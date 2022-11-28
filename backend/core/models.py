@@ -56,6 +56,8 @@ class DeliveryStation(models.Model):
     region = models.CharField(max_length=250, null=True, blank=True)
     town = models.CharField(max_length=150, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    longitude = models.CharField(max_length=100, null=True, blank=True)
+    latitude = models.CharField(max_length=100, null=True, blank=True)
     active = models.BooleanField(default=True)
     dateCreated = models.DateField(auto_now_add=True)
 

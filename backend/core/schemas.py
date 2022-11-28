@@ -1,20 +1,13 @@
 from drf_yasg import openapi
+from .serializers import DeliveryManagerSerializer
 
-response_schema_dict = {
-    "201": openapi.Response(
-        description="Htpp 201 description",
+get_managers_response_schema = {
+    200: DeliveryManagerSerializer(many=False),
+    401: openapi.Response(
+        description="Http 401 Error description",
         examples={
             "application/json": {
-                "key": "value",
-            }
-        },
-    ),
-    "500": openapi.Response(
-        description="Htpp 500 description",
-        examples={
-            "application/json": {
-                "key_1": "error message 1",
-                "key_2": "error message 2",
+                "Error": "Manager with this email Address doesn't exists",
             }
         },
     ),

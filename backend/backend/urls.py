@@ -11,7 +11,11 @@ class CustomApiSchemaGenerator(OpenAPISchemaGenerator):
 
         swagger = super().get_schema(request, public)
         swagger.tags = [
-            {"name": "User", "description": "Handles user Creation & Authentications"}
+            {"name": "User", "description": "Handles user Creation & Authentications"},
+            {
+                "name": "Address",
+                "description": "Station Addresses and Places of operations",
+            },
         ]
         return swagger
 

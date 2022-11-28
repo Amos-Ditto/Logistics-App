@@ -6,7 +6,13 @@ from drf_yasg.utils import swagger_auto_schema, OrderedDict
 from drf_yasg import openapi
 
 from .models import DeliveryManager, DeliveryStation
-from .serializers import UserSerializer, UserLoginSerializer, DeliveryManagerSerializer
+from .serializers import (
+    UserSerializer,
+    UserLoginSerializer,
+    DeliveryManagerSerializer,
+    DeliveryStationSerializer,
+)
+from .schemas import get_managers_response_schema
 
 User = get_user_model()
 
@@ -74,7 +80,7 @@ class DeliveryManagerView(APIView):
         tags=["User"],
         operation_description="Get Delivery Managers by emails or All but paginated dicts",
         manual_parameters=[emailAddress],
-        responses={200: DeliveryManagerSerializer(many=False)},
+        responses=get_managers_response_schema,
     )
     def get(self, request, format=None):
         params = request.query_params
@@ -129,3 +135,56 @@ class DeliveryManagerView(APIView):
 
         else:
             return Response(data.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class DeliveryStationView(APIView):
+    placeName = openapi.Parameter(
+        "placeName",
+        openapi.IN_QUERY,
+        description="Get stations by placeName",
+        type=openapi.TYPE_STRING,
+    )
+    region = openapi.Parameter(
+        "region",
+        openapi.IN_QUERY,
+        description="Get stations by region",
+        type=openapi.TYPE_STRING,
+    )
+    town = openapi.Parameter(
+        "town",
+        openapi.IN_QUERY,
+        description="Get stations by town",
+        type=openapi.TYPE_STRING,
+    )
+
+    @swagger_auto_schema(
+        tags=["Address"],
+        operation_description="List Delivery Stations & Addresses and also can searchable with parameters `placeName` or `region` or `town`",
+        manual_parameters=[placeName, region, town],
+        responses={200: DeliveryStationSerializer(many=True)},
+    )
+    def get(self, request):
+        params = request.query_params
+
+        if "placeName" in params:
+            station = DeliveryStation.objects.filter(
+                placeName__icontains=params["placeName"]
+            )
+            return Response(
+                DeliveryStationSerializer(station, many=True).data, status.HTTP_200_OK
+            )
+        if "region" in params:
+            station = DeliveryStation.objects.filter(region__icontains=params["region"])
+            return Response(
+                DeliveryStationSerializer(station, many=True).data, status.HTTP_200_OK
+            )
+        if "town" in params:
+            station = DeliveryStation.objects.filter(region__icontains=params["town"])
+            return Response(
+                DeliveryStationSerializer(station, many=True).data, status.HTTP_200_OK
+            )
+
+        station = DeliveryStation.objects.all()
+        return Response(
+            DeliveryStationSerializer(station, many=True).data, status.HTTP_200_OK
+        )
