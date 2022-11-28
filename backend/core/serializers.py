@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["emailAddress", "fullName", "Authorization", "password"]
+        fields = ["emailAddress", "fullName", "Authorization"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -40,23 +40,6 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=6)
 
 
-class DeliveryManagerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DeliveryManager
-        fields = ["id", "user", "station", "active"]
-        depth = 1
-
-    def create(self, validated_data):
-        station = DeliveryStation.objects.filter(id=validated_data["station"]).first()
-        if station:
-            manager, _ = DeliveryManager.objects.get_or_create(
-                user_id=validated_data["user"],
-                station=station,
-            )
-
-            return manager
-
-
 class DeliveryStationSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryStation
@@ -70,3 +53,22 @@ class DeliveryStationSerializer(serializers.ModelSerializer):
             "latitude",
             "active",
         ]
+
+
+class DeliveryManagerSerializer(serializers.ModelSerializer):
+    user_detail = UserSerializer(source="user_manager", read_only=True)
+    station_detail = DeliveryStationSerializer(source="station", read_only=True)
+
+    class Meta:
+        model = DeliveryManager
+        fields = ["id", "user", "station", "active", "user_detail", "station_detail"]
+
+    def create(self, validated_data):
+        station = DeliveryStation.objects.filter(id=validated_data["station"]).first()
+        if station:
+            manager, _ = DeliveryManager.objects.get_or_create(
+                user_id=validated_data["user"],
+                station=station,
+            )
+
+            return manager

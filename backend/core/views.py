@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
-from drf_yasg.utils import swagger_auto_schema, OrderedDict
+from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from .models import DeliveryManager, DeliveryStation
@@ -12,7 +12,7 @@ from .serializers import (
     DeliveryManagerSerializer,
     DeliveryStationSerializer,
 )
-from .schemas import get_managers_response_schema
+from .schemas import get_managers_response_schema, post_managers_response_schema
 
 User = get_user_model()
 
@@ -108,7 +108,7 @@ class DeliveryManagerView(APIView):
         tags=["User"],
         operation_description="Authenticates an existing user based on their email and their password. If successful, an access token and a refresh token will be returned.",
         request_body=DeliveryManagerSerializer,
-        responses={200: DeliveryManagerSerializer(many=False)},
+        responses=post_managers_response_schema,
     )
     def post(self, request, format=None):
         data = DeliveryManagerSerializer(data=request.data)
