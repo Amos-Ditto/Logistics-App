@@ -49,3 +49,36 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class DeliveryStation(models.Model):
+    placeName = models.CharField(max_length=250)
+    region = models.CharField(max_length=250)
+    town = models.CharField(max_length=150)
+    active = models.BooleanField(default=True)
+    dateCreated = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Delivery Stations"
+        verbose_name_plural = "Delivery Stations"
+
+    def __str__(self):
+        return self.placeName
+
+
+class DeliveryManager(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="user_manager"
+    )
+    station = models.ForeignKey(
+        DeliveryStation, on_delete=models.CASCADE, related_name="station"
+    )
+    active = models.BooleanField(default=True)
+    joinedDate = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Delivery Managers"
+        verbose_name_plural = "Delivery Managers"
+
+    def __str__(self):
+        return self.user.fullName + " | " + self.station.placeName

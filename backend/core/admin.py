@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from .models import User
+from .models import User, DeliveryManager, DeliveryStation
 from .forms import UserChangeForm, UserCreationForm
 
 admin.site.unregister(Group)
@@ -37,3 +37,13 @@ class UserAdmin(BaseUserAdmin):
     )
     ordering = ("emailAddress",)
     filter_horizontal = ()
+
+
+@admin.register(DeliveryStation)
+class DeliveryStationAdmin(admin.ModelAdmin):
+    list_display = ["id", "placeName", "region", "town", "active"]
+
+
+@admin.register(DeliveryManager)
+class DeliveryManagerAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "station", "active"]
