@@ -57,7 +57,7 @@ REST_FRAMEWORK = {
 }
 
 SWAGGER_SETTINGS = {
-    "DEFAULT_AUTO_SCHEMA_CLASS": "lbs_backend.utils.CustomSwaggerAutoSchema",
+    "DEFAULT_AUTO_SCHEMA_CLASS": "backend.utils.CustomSwaggerAutoSchema",
     "USE_SESSION_AUTH": False,
     "SECURITY_DEFINITIONS": {
         "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
