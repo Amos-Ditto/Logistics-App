@@ -12,7 +12,12 @@ from .serializers import (
     DeliveryManagerSerializer,
     DeliveryStationSerializer,
 )
-from .schemas import get_managers_response_schema, post_managers_response_schema
+from .schemas import (
+    get_managers_response_schema,
+    post_managers_response_schema,
+    registration_response_schema,
+    login_response_schema,
+)
 
 User = get_user_model()
 
@@ -22,7 +27,7 @@ class UserView(APIView):
         tags=["User"],
         operation_description="Creates a new user based on the provided values. If desired an authentication JWT can be generated right away. After creating an account the initial group containing a database is created.",
         request_body=UserSerializer,
-        responses={201: UserSerializer(many=False)},
+        responses=registration_response_schema,
     )
     def post(self, request):
         data = UserSerializer(data=request.data)
@@ -39,7 +44,7 @@ class UserLoginView(APIView):
         tags=["User"],
         operation_description="Authenticates an existing user based on their email and their password. If successful, an access token and a refresh token will be returned.",
         request_body=UserLoginSerializer,
-        responses={200: UserSerializer(many=False)},
+        responses=login_response_schema,
     )
     def post(self, request):
         data = UserLoginSerializer(data=request.data)
@@ -56,12 +61,12 @@ class UserLoginView(APIView):
                 else:
                     return Response(
                         {"Error": "You entered the wrong credentials"},
-                        status.HTTP_400_BAD_REQUEST,
+                        status.HTTP_401_UNAUTHORIZED,
                     )
             else:
                 return Response(
                     {"Error": "User with the following Email does not exist"},
-                    status.HTTP_400_BAD_REQUEST,
+                    status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
         else:
             return Response(data.errors, status.HTTP_400_BAD_REQUEST)
